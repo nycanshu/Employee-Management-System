@@ -6,7 +6,7 @@ import java.awt.event.*;
 
 public class Home extends JFrame implements ActionListener{
 
-    JButton view, add, update, remove;
+    JButton view, add, update, remove,viewemployeedetails;
     
     Home() {
         
@@ -46,6 +46,13 @@ public class Home extends JFrame implements ActionListener{
         remove.addActionListener(this);
         image.add(remove);
         
+        viewemployeedetails = new JButton("View Employee Work History");
+        viewemployeedetails.setBounds(650, 210, 320, 40);
+        viewemployeedetails.addActionListener(this);
+        image.add(viewemployeedetails);
+        
+        
+        
         setSize(1120, 630);
         setLocation(250, 100);
         setVisible(true);
@@ -62,7 +69,11 @@ public class Home extends JFrame implements ActionListener{
         } else if (ae.getSource() == update) {
             setVisible(false);
             new ViewEmployee();
-        } else {
+        } else if(ae.getSource() == viewemployeedetails){
+            setVisible(false);
+            new ViewEmployeeWorkAsAdmin();
+        }                     
+        else {
             setVisible(false);
             new RemoveEmployee();
         }

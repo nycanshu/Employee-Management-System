@@ -6,53 +6,65 @@ import java.awt.event.*;
 
 public class EmployeeHome extends JFrame implements ActionListener {
 
-    JButton addWork, updateWork, changePassword;
+    JButton addWork,  changePassword, viewworkhistory;
     private final String employeeId;
 
     public EmployeeHome(String employeeId) {
         this.employeeId = employeeId;
         setTitle("Employee Home");
-        setLayout(null);
+
+        JPanel contentPane = new JPanel(); // Create a content pane
+        contentPane.setLayout(new BorderLayout()); // Use BorderLayout for the content pane
 
         ImageIcon backgroundIcon = new ImageIcon(ClassLoader.getSystemResource("icons/home.jpg"));
         Image backgroundImage = backgroundIcon.getImage().getScaledInstance(1120, 630, Image.SCALE_DEFAULT);
         ImageIcon scaledBackgroundIcon = new ImageIcon(backgroundImage);
         JLabel backgroundLabel = new JLabel(scaledBackgroundIcon);
-        backgroundLabel.setBounds(0, 0, 1120, 630);
-        add(backgroundLabel);
+        contentPane.add(backgroundLabel, BorderLayout.CENTER); // Add background label to the content pane
+
+        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 20)); // Panel for buttons
+        buttonPanel.setOpaque(false); // Make the panel transparent
+        contentPane.add(buttonPanel, BorderLayout.NORTH); // Add button panel to the top of content pane
 
         JLabel heading = new JLabel("Employee Home");
-        heading.setBounds(500, 20, 300, 40);
         heading.setFont(new Font("Raleway", Font.BOLD, 25));
-        backgroundLabel.add(heading);
+        buttonPanel.add(heading);
 
         addWork = new JButton("Add Work");
-        addWork.setBounds(450, 80, 150, 40);
         addWork.addActionListener(this);
-        backgroundLabel.add(addWork);
+        buttonPanel.add(addWork);
 
 //        updateWork = new JButton("Update Work");
-//        updateWork.setBounds(620, 80, 150, 40);
 //        updateWork.addActionListener(this);
-//        backgroundLabel.add(updateWork);
+//        buttonPanel.add(updateWork);
 
+        
+        viewworkhistory = new JButton("View Work History");
+        viewworkhistory.addActionListener(this);
+        buttonPanel.add(viewworkhistory);
+
+        
         changePassword = new JButton("Change Password");
-        changePassword.setBounds(620, 80, 150, 40);
         changePassword.addActionListener(this);
-        backgroundLabel.add(changePassword);
+        buttonPanel.add(changePassword);
 
-        setSize(1120, 630);
-        setLocation(250, 100);
+        setContentPane(contentPane); // Set content pane
+        pack(); // Pack components
+        setLocationRelativeTo(null); // Center the frame on screen
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Default close operation
         setVisible(true);
     }
 
     @Override
     public void actionPerformed(ActionEvent ae) {
         if (ae.getSource() == addWork) {
+             setVisible(false);
             new AddEmployeeWork(employeeId);
-        } else if (ae.getSource() == updateWork) {
-           
-            JOptionPane.showMessageDialog(this, "Update Work button clicked");
+        } else if (ae.getSource() == viewworkhistory) {
+             setVisible(false);
+             new ViewWorkHistory(employeeId);
+             //JOptionPane.showMessageDialog(this, "viewworkhistory  button clicked");
+            
         } else {
             new UpdateEmployeePassword(employeeId);
         }

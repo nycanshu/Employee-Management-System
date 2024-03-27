@@ -17,8 +17,8 @@ public class UpdateEmployeePassword extends JFrame implements ActionListener {
         setLayout(null);
 
         JLabel heading = new JLabel("Update Your Password");
-        heading.setBounds(250, 30, 500, 50);
-        heading.setFont(new Font("SAN_SERIF", Font.BOLD, 25));
+        heading.setBounds(150, 30, 300, 40);
+        heading.setFont(new Font("Arial", Font.BOLD, 20));
         add(heading);
 
         JLabel lblEmployeeId = new JLabel("Employee ID:");
@@ -34,7 +34,7 @@ public class UpdateEmployeePassword extends JFrame implements ActionListener {
         add(lblOldPassword);
 
         tfOldPassword = new JPasswordField();
-        tfOldPassword.setBounds(200, 150, 150, 30);
+        tfOldPassword.setBounds(200, 150, 200, 30);
         add(tfOldPassword);
 
         JLabel lblNewPassword = new JLabel("New Password:");
@@ -42,7 +42,7 @@ public class UpdateEmployeePassword extends JFrame implements ActionListener {
         add(lblNewPassword);
 
         tfNewPassword = new JPasswordField();
-        tfNewPassword.setBounds(200, 200, 150, 30);
+        tfNewPassword.setBounds(200, 200, 200, 30);
         add(tfNewPassword);
 
         updatePassword = new JButton("Update Password");
@@ -52,8 +52,8 @@ public class UpdateEmployeePassword extends JFrame implements ActionListener {
         updatePassword.addActionListener(this);
         add(updatePassword);
 
-        setSize(500, 400);
-        setLocation(400, 200);
+        setSize(450, 350);
+        setLocationRelativeTo(null); // Center the frame on screen
         setVisible(true);
     }
 
@@ -62,6 +62,11 @@ public class UpdateEmployeePassword extends JFrame implements ActionListener {
         if (ae.getSource() == updatePassword) {
             String oldPassword = tfOldPassword.getText();
             String newPassword = tfNewPassword.getText();
+            
+            if (oldPassword.isEmpty() || newPassword.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please fill in both old and new passwords", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
 
             try {
                 Conn conn = new Conn();
@@ -87,6 +92,5 @@ public class UpdateEmployeePassword extends JFrame implements ActionListener {
 
     public static void main(String args[]) {
         // For testing purposes
-       
     }
 }
